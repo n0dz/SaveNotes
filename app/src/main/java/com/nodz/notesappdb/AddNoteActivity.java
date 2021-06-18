@@ -2,6 +2,7 @@ package com.nodz.notesappdb;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +10,12 @@ import android.widget.Toast;
 
 import com.nodz.notesappdb.databinding.ActivityAddNoteBinding;
 
+import java.util.Objects;
+
 
 public class AddNoteActivity extends AppCompatActivity {
 
     ActivityAddNoteBinding binding;
-    int noteId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +23,7 @@ public class AddNoteActivity extends AppCompatActivity {
         binding = ActivityAddNoteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         final DBhelper dBhelper = new DBhelper(this);
 
@@ -36,11 +38,23 @@ public class AddNoteActivity extends AppCompatActivity {
                     Toast.makeText(AddNoteActivity.this, "Data Added", Toast.LENGTH_SHORT).show();
                     NotesAdapter adapter = new NotesAdapter();
                     adapter.notifyDataSetChanged();
-                    startActivity(new Intent(AddNoteActivity.this,HomeActivity.class));
-                }
+                    startActivity(new Intent(AddNoteActivity.this, MainActivity.class));
+
+                 }
                 else
                     Toast.makeText(AddNoteActivity.this, "Failed", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
     }
 }

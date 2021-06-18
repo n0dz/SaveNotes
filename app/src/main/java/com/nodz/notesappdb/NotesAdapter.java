@@ -1,16 +1,21 @@
 package com.nodz.notesappdb;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -42,6 +47,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.customViewHo
         NotesModel model = noteslist.get(position);
         holder.tvnotes.setText(model.getNotes());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(context,AddNoteActivity.class);
@@ -49,6 +55,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.customViewHo
                 context.startActivity(in);
             }
         });
+
+        // Deleting a note.
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
