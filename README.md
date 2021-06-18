@@ -4,7 +4,7 @@ Android application for Saving Notes.
 ## Features
 - Add a note.
 - Edit a note.
-- Delete a note.
+- LongPress to delete a note.
 - Interactive menu.
 - Notes saved in SQLiteDB.
 
