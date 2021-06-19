@@ -7,8 +7,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,15 +46,20 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.customViewHo
 
     @Override
     public void onBindViewHolder(NotesAdapter.customViewHolder holder, int position) {
-        helper = new DBhelper(context);
+
         NotesModel model = noteslist.get(position);
+
+        Log.i("ID is",model.getId()+"THIS IS ID");
         holder.tvnotes.setText(model.getNotes());
+        holder.tvnoteId.setText(model.getId());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(context,AddNoteActivity.class);
-                in.putExtra("notetext",model.getNotes());
+                in.putExtra("id",model.getId());
+                in.putExtra("type",2);
                 context.startActivity(in);
             }
         });
@@ -74,7 +82,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.customViewHo
                                 }
                         ).setNegativeButton("No", null)
                         .show();
-
                 return true;
             }
         });
@@ -86,11 +93,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.customViewHo
     }
 
     public class customViewHolder extends RecyclerView.ViewHolder{
-        TextView tvnotes;
+        TextView tvnotes,tvnoteId;
 
         public customViewHolder(View itemView) {
             super(itemView);
             tvnotes = itemView.findViewById(R.id.note);
+            tvnoteId = itemView.findViewById(R.id.noteId);
         }
     }
 

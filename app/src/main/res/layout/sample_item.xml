@@ -13,6 +13,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginStart="25dp"
         android:background="@drawable/stroke_tv"
         android:drawableEnd="@drawable/ic_baseline_sticky_note_2_24"
         android:padding="15dp"
@@ -22,8 +23,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent"
-        android:drawableRight="@drawable/ic_baseline_sticky_note_2_24" />
+        android:drawableRight="@drawable/ic_baseline_sticky_note_2_24"
+        android:layout_marginLeft="25dp" />
 
+    <TextView
+        android:id="@+id/noteId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/note"
+        app:layout_constraintEnd_toStartOf="@+id/note"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/note"
+        />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
