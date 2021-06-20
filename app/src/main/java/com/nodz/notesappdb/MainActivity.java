@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(getApplicationContext(), AddNoteActivity.class);
+                in.putExtra("type",1);
                 startActivity(in);
-                //overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
             }
         });*/
 

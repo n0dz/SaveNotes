@@ -7,9 +7,15 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+<<<<<<< HEAD
 import android.graphics.Color;
+=======
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+>>>>>>> 08cbcbf839462fda218a2cbba711ddbad65b48a1
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,9 +55,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.customViewHo
 
     @Override
     public void onBindViewHolder(NotesAdapter.customViewHolder holder, int position) {
-        helper = new DBhelper(context);
+
         NotesModel model = noteslist.get(position);
+
+        Log.i("ID is",model.getId()+"THIS IS ID");
         holder.tvnotes.setText(model.getNotes());
+<<<<<<< HEAD
 
         if(position%2==0) {
             holder.cardView.setCardBackgroundColor(Color.parseColor("#ffff99"));
@@ -62,15 +71,25 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.customViewHo
             holder.tvnotes.setTextColor(ContextCompat.getColor(context, R.color.white));
         }
         // First deleting the selected text and saving the updated text .
+=======
+        holder.tvnoteId.setText(model.getId());
+
+>>>>>>> 08cbcbf839462fda218a2cbba711ddbad65b48a1
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 Intent in = new Intent(context,EditNoteActivity.class);
                 in.putExtra("text",model.getNotes()+" ");
                 //in.putExtra("type",1);
                 noteslist.remove(position);
                 helper.deleteNotes(model.getNotes());
+=======
+                Intent in = new Intent(context,AddNoteActivity.class);
+                in.putExtra("id",model.getId());
+                in.putExtra("type",2);
+>>>>>>> 08cbcbf839462fda218a2cbba711ddbad65b48a1
                 context.startActivity(in);
                 notifyDataSetChanged();
             }
@@ -104,6 +123,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.customViewHo
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+<<<<<<< HEAD
                 CFAlertDialog.Builder builder = new CFAlertDialog.Builder(context)
                         // NOTIFICATION,ALERT or Bottomsheet
                         .setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT)
@@ -127,6 +147,22 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.customViewHo
                     }
                 });
                 builder.show();
+=======
+                new AlertDialog.Builder(context)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Are you sure ?")
+                        .setMessage("Your note will be deleted!")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        noteslist.remove(position);
+                                        helper.deleteNotes(model.getNotes());
+                                        notifyDataSetChanged();
+                                    }
+                                }
+                        ).setNegativeButton("No", null)
+                        .show();
+>>>>>>> 08cbcbf839462fda218a2cbba711ddbad65b48a1
                 return true;
             }
         });
@@ -138,15 +174,23 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.customViewHo
     }
 
     public class customViewHolder extends RecyclerView.ViewHolder{
+<<<<<<< HEAD
         TextView tvnotes;
         CardView cardView;
         ImageButton showImgBtn;
+=======
+        TextView tvnotes,tvnoteId;
+>>>>>>> 08cbcbf839462fda218a2cbba711ddbad65b48a1
 
         public customViewHolder(View itemView) {
             super(itemView);
             tvnotes = itemView.findViewById(R.id.note);
+<<<<<<< HEAD
             cardView = itemView.findViewById(R.id.cardView);
             showImgBtn = itemView.findViewById(R.id.showNote);
+=======
+            tvnoteId = itemView.findViewById(R.id.noteId);
+>>>>>>> 08cbcbf839462fda218a2cbba711ddbad65b48a1
         }
     }/*
     public void alertDialog(){
