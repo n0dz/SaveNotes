@@ -6,6 +6,10 @@
         android:title="Add Note" />
 
     <item
+        android:id="@+id/deleteNoteMenu"
+        android:title="Delete Note" />
+
+    <item
         android:id="@+id/exitAppMenu"
         android:title="Exit" />
 

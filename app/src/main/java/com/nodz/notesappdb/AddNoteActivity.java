@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
-
 
 import com.nodz.notesappdb.databinding.ActivityAddNoteBinding;
 
@@ -27,9 +25,9 @@ public class AddNoteActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        DBhelper dBhelper = new DBhelper(this);
+        final DBhelper dBhelper = new DBhelper(this);
 
-        binding.etAddnote.setText(getIntent().getStringExtra("note"));
+        binding.etAddnote.setText(getIntent().getStringExtra("notetext"));
 
         binding.saveNoteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,23 +39,13 @@ public class AddNoteActivity extends AppCompatActivity {
                     NotesAdapter adapter = new NotesAdapter();
                     adapter.notifyDataSetChanged();
                     startActivity(new Intent(AddNoteActivity.this, MainActivity.class));
+
                  }
                 else
                     Toast.makeText(AddNoteActivity.this, "Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
