@@ -3,14 +3,13 @@ package com.nodz.notesappdb;
 public class NotesModel {
 
     String notes;
-    String id;
 
     public NotesModel() {
     }
 
-    public NotesModel(String notes, String id) {
+    public NotesModel(String notes) {
         this.notes = notes;
-        this.id = id;
+
     }
 
     public String getNotes() {
@@ -19,14 +18,6 @@ public class NotesModel {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
 }
