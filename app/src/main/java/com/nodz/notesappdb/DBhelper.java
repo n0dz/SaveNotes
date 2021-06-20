@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -45,12 +46,14 @@ public class DBhelper extends SQLiteOpenHelper {
 
     public ArrayList<NotesModel> getNotes(){
         ArrayList<NotesModel> notes = new ArrayList<>();
+        ArrayList<NotesModel> id = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select * from notes",null);
         if(cursor.moveToFirst()){
             while(cursor.moveToNext()){
                 NotesModel model = new NotesModel();
                 model.setNotes(cursor.getString(1));
+
                 notes.add(model);
             }
         }
@@ -67,6 +70,19 @@ public class DBhelper extends SQLiteOpenHelper {
         db.delete(TABLE_NAME, "note_text=?", new String[]{notes});
         db.close();
 
+    }
+
+    public boolean updateData(String note){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("note_text", note);
+
+        long results = db.update("notes",values,"note_text=?",new String[]{note});
+
+        if(results == -1)
+            return false;
+        return true;
     }
 
 

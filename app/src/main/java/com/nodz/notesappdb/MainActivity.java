@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         //GridLayoutManager manager = new GridLayoutManager(this,2);
         binding.noteRecyclerView.setLayoutManager(manager);
 
+        /*
         binding.addNoteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +52,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(in);
                 //overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
             }
-        });
+        });*/
+
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
@@ -78,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.addNoteMenu:
-                startActivity(new Intent(getApplicationContext(), AddNoteActivity.class));
+                NotesModel model = new NotesModel();
+                startActivity(new Intent(getApplicationContext(), AddNoteActivity.class).putExtra("note",model.getNotes()));
                 break;
 
             case R.id.exitAppMenu:
