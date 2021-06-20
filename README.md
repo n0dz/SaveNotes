@@ -8,7 +8,7 @@ Android application for Saving Notes.
 - Interactive menu.
 - Notes saved in SQLiteDB.
 
-# NOTES APP
+# HomeScreen ------ AddNote Screen    
 ![NotesApp](https://user-images.githubusercontent.com/43600925/122641291-39ab8000-d0b9-11eb-9872-2068c0feaf34.gif)
 
 
