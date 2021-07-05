@@ -7,6 +7,7 @@ Android application for saving notes
 - Save note
 
 # APP in Action
-![NotesApp](https://user-images.githubusercontent.com/43600925/122667924-4f2cb280-d16a-11eb-9254-bddabcedb89c.gif)
+![AddingDeletingnote](https://user-images.githubusercontent.com/43600925/124486979-01679b00-dd63-11eb-8e09-1ae7a9392584.gif)
+
 
 
