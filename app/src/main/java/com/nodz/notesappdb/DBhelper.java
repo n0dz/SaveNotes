@@ -69,5 +69,9 @@ public class DBhelper extends SQLiteOpenHelper {
 
     }
 
+    public void updateNotes() {
+
+    }
+
 
 }

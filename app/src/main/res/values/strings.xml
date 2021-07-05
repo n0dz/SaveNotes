@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NotesAppDB</string>
+    <string name="editWidth">5</string>
 </resources>

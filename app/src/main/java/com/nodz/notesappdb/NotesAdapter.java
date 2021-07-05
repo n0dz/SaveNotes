@@ -3,6 +3,7 @@ package com.nodz.notesappdb;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,11 +13,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -46,13 +54,37 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.customViewHo
         helper = new DBhelper(context);
         NotesModel model = noteslist.get(position);
         holder.tvnotes.setText(model.getNotes());
+
+        Dialog dialog = new Dialog(context);
+
+        //Editing Note
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(context,AddNoteActivity.class);
-                in.putExtra("notetext",model.getNotes());
-                context.startActivity(in);
+                dialog.setContentView(R.layout.edit_dialog);
+                dialog.show();
+
+                EditText newnote = dialog.findViewById(R.id.editNoteText);
+                newnote.setText(holder.tvnotes.getText());
+                String forcom = holder.tvnotes.getText().toString();
+                Button btn = dialog.findViewById(R.id.updateNote);
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        noteslist.remove(holder.getAdapterPosition());
+                        helper.deleteNotes(model.getNotes());
+
+                        model.setNotes(" "+newnote.getText().toString());
+                        helper.insertNotes(" "+newnote.getText().toString());
+
+                        noteslist.add(model);
+                        notifyDataSetChanged();
+
+                        dialog.dismiss();
+                    }
+                });
+
             }
         });
 
