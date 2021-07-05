@@ -67,7 +67,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.customViewHo
 
                 EditText newnote = dialog.findViewById(R.id.editNoteText);
                 newnote.setText(holder.tvnotes.getText());
-                String forcom = holder.tvnotes.getText().toString();
                 Button btn = dialog.findViewById(R.id.updateNote);
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override

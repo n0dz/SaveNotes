@@ -19,9 +19,10 @@ import com.nodz.notesappdb.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     ActivityMainBinding binding;
     ArrayList<NotesModel> list;
+    DBhelper helper;
+    NotesAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +34,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.abs_layout);
 
-        DBhelper helper = new DBhelper(this);
+        helper = new DBhelper(this);
         list = helper.getNotes();
 
-        NotesAdapter adapter = new NotesAdapter(list, this);
+        adapter = new NotesAdapter(list, this);
         binding.noteRecyclerView.setAdapter(adapter);
 
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -60,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        list = helper.getNotes();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -78,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.addNoteMenu:
-                startActivity(new Intent(getApplicationContext(), AddNoteActivity.class));
+                startActivity(new Intent(MainActivity.this, AddNoteActivity.class));
                 break;
 
             case R.id.exitAppMenu:
@@ -95,7 +103,12 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("No", null)
                         .show();
-                break;
+//                break;
+//            case R.id.deleteNoteMenu:
+//                helper.deleteAllNotes();
+//                list = helper.getNotes();
+//                adapter.notifyDataSetChanged();
+//                break;
         }
         return true;
     }

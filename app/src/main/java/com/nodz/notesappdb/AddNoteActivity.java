@@ -10,12 +10,13 @@ import android.widget.Toast;
 
 import com.nodz.notesappdb.databinding.ActivityAddNoteBinding;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 
 public class AddNoteActivity extends AppCompatActivity {
-
     ActivityAddNoteBinding binding;
+    NotesAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,23 +24,21 @@ public class AddNoteActivity extends AppCompatActivity {
         binding = ActivityAddNoteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Objects.requireNonNull(getSupportActionBar()).hide();
-
+        getSupportActionBar().hide();
+        NotesModel model = new NotesModel();
         final DBhelper dBhelper = new DBhelper(this);
+        adapter = new NotesAdapter();
 
         binding.etAddnote.setText(getIntent().getStringExtra("notetext"));
 
         binding.saveNoteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 boolean isInserted = dBhelper.insertNotes(binding.etAddnote.getText().toString());
                 if(isInserted) {
-                    Toast.makeText(AddNoteActivity.this, "Data Added", Toast.LENGTH_SHORT).show();
-                    NotesAdapter adapter = new NotesAdapter();
                     adapter.notifyDataSetChanged();
-                    startActivity(new Intent(AddNoteActivity.this, MainActivity.class));
-
+                    Toast.makeText(AddNoteActivity.this, "Data Added", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(AddNoteActivity.this,MainActivity.class));
                  }
                 else
                     Toast.makeText(AddNoteActivity.this, "Failed", Toast.LENGTH_SHORT).show();

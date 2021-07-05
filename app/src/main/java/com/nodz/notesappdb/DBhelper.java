@@ -69,8 +69,11 @@ public class DBhelper extends SQLiteOpenHelper {
 
     }
 
-    public void updateNotes() {
 
+    public void deleteAllNotes(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM notes where id > -1");
+        db.close();
     }
 
 
